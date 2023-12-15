@@ -42,4 +42,10 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function serviceOrders()
+    {
+        return $this->hasMany(ServiceOrder::class, 'userId');
+    }
+
 }
