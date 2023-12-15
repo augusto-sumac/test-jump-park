@@ -16,14 +16,23 @@ class ServiceOrderController extends Controller
         $perPage = $request->input('perPage', 5);
         $vehiclePlateFilter = $request->input('vehiclePlateFilter', '');
 
-        $serviceOrders = DB::table('service_orders')
+        //Query with Query Builder
+        /*$serviceOrders = DB::table('service_orders')
             ->select('service_orders.*', 'users.name as userName')
             ->leftJoin('users', 'service_orders.userId', '=', 'users.id')
             ->where('service_orders.status', true)
             ->when($vehiclePlateFilter, function ($query) use ($vehiclePlateFilter) {
                 return $query->where('service_orders.vehiclePlate', 'like', '%' . $vehiclePlateFilter . '%');
             })
-            ->paginate($perPage);
+            ->paginate($perPage);*/
+
+        //Query with Full Eloquent
+        $serviceOrders = ServiceOrder::with('user')
+        ->where('status', true)
+        ->when($vehiclePlateFilter, function ($query) use ($vehiclePlateFilter) {
+            return $query->where('vehiclePlate', 'like', '%' . $vehiclePlateFilter . '%');
+        })
+        ->paginate($perPage);
 
         return response()->json($serviceOrders);
     }
