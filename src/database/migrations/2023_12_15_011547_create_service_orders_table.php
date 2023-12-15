@@ -20,6 +20,7 @@ return new class extends Migration
             $table->decimal('price', 12, 2)->default(0.00);
             $table->unsignedBigInteger('userId');
             $table->foreign('userId')->references('id')->on('users');
+            $table->boolean('status')->default(true);
             $table->timestamps();
         });
     }

@@ -21,9 +21,10 @@ Route::post('/login', [AuthController::class, 'login']);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
+    Route::get('/service-orders', [ServiceOrderController::class, 'index']);
     Route::post('/service-orders', [ServiceOrderController::class, 'store']);
-    Route::post('/service-orders', [ServiceOrderController::class, 'store']);
-
+    Route::put('/service-orders/{id}', [ServiceOrderController::class, 'update']);
+    Route::delete('/service-orders/{id}', [ServiceOrderController::class, 'destroy']);
 });
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {

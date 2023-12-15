@@ -17,7 +17,8 @@ class ServiceOrder extends Model
         'exitDateTime',
         'priceType',
         'price',
-        'userId'
+        'userId',
+        'status'
     ];
 
     public function user()
